@@ -24,10 +24,7 @@ $q = q_V \cdot s_A$
 **2. kérdés - Hőmérséklet a rétegek érintkezésénél**
 
 Az "A" rétegben a hőmérséklet-eloszlás parabolikus, a hőszigetelt faltól (x=0) a réteghatárig (x=s_A).
-A hőmérséklet-gradiens képlete (figyelembe véve, hogy x=0-nál a gradiens nulla):
-$\frac{dT_A}{dx} = -\frac{q_V}{\lambda_A} \cdot x$
 
-Integrálva a fenti egyenletet:
 $T_A(x) = T_{max} - \frac{q_V \cdot x^2}{2\lambda_A}$
 
 Ahol $T_{max}$ a maximális hőmérséklet az "A" réteg belső (x=0) felületénél.
@@ -55,7 +52,7 @@ Az egyenletrendszer megoldásához a maximális hőmérsékletből kell kiinduln
 $T_A(0) = T_{max}$
 
 Ebből a kontakthőmérséklet:
-$T_{kontakt} = T_{max} - \frac{q_V \cdot s_A^2}{2\lambda_A} + \frac{q \cdot s_A}{\lambda_A}$
+$T_{kontakt} = T_{max} - \frac{q_V \cdot s_A^2}{2\lambda_A}$
 
 ---
 

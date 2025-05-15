@@ -4,66 +4,50 @@ Egy alkatrészt az alábbi ábra szerinti kialakítású duralumínium bordázat
 Az alapfelületet és a bordákat 21 °C hőmérsékletű áramló levegővel hűtik, melyet 30 W/(m²·K) hőátadási tényező jellemez.  
 A bordázat mérete az alábbi ábrán látható. A bordák négyzet keresztmetszetűek és **L = 17 mm** hosszúak.
 
-### Megoldás
+## Megoldás
 
-**Jelölések:**
-- $T_0$ - alkatrész felszínének hőmérséklete [°C]
-- $T_∞$ - környezeti levegő hőmérséklete [°C]
-- $\alpha$ - hőátadási tényező [W/(m²·K)]
-- $L$ - borda hossza [m]
-- $a$ - borda keresztmetszetének oldalhossza [m]
-- $\lambda$ - duralumínium hővezetési tényezője [W/(m·K)]
-- $n$ - bordák száma 1 m²-en
-
-**5. kérdés - Összes hőteljesítmény**
-
-A borda karakterisztikus tényezője:
-$m = \sqrt{\frac{\alpha \cdot P}{\lambda \cdot A_k}}$
-
-Ahol:
-- $P = 4a$ - a borda kerülete [m]
-- $A_k = a^2$ - a borda keresztmetszete [m²]
-
-Tehát: $m = \sqrt{\frac{4a \cdot \alpha}{a^2 \cdot \lambda}} = 2 \cdot \sqrt{\frac{\alpha}{a \cdot \lambda}}$
-
-A konvektív véglappal rendelkező borda hőárama:
-$Q_{borda} = \sqrt{\alpha \cdot P \cdot \lambda \cdot A_k} \cdot (T_0 - T_∞) \cdot \frac{\sinh(mL) + \frac{\alpha}{m\lambda}\cosh(mL)}{\cosh(mL) + \frac{\alpha}{m\lambda}\sinh(mL)}$
-
-Egy borda teljes felülete:
-$A_{borda} = 4aL + a^2$ (oldalfelületek + véglap)
-
-A borda hatásfoka:
-$\eta = \frac{Q_{borda}}{\alpha \cdot A_{borda} \cdot (T_0 - T_∞)}$
-
-Az alapfelületről leadott hő (bordázat nélküli rész):
-$A_{alap} = 1 - n \cdot a^2$ [m²]
-$Q_{alap} = \alpha \cdot A_{alap} \cdot (T_0 - T_∞)$
-
-Összes hőleadás:
-$Q_{össz} = n \cdot Q_{borda} + Q_{alap}$
-
-**6. kérdés - Borda véglapjának hőmérséklete**
-
-A borda hőmérséklet-eloszlása:
-$\frac{T(x) - T_∞}{T_0 - T_∞} = \frac{\cosh(m(L-x)) + \frac{\alpha}{m\lambda}\sinh(m(L-x))}{\cosh(mL) + \frac{\alpha}{m\lambda}\sinh(mL)}$
-
-A véglap hőmérséklete (x = L):
-$T_{véglap} = T_∞ + (T_0 - T_∞) \cdot \frac{1 + \frac{\alpha}{m\lambda} \cdot 0}{\cosh(mL) + \frac{\alpha}{m\lambda}\sinh(mL)} = T_∞ + (T_0 - T_∞) \cdot \frac{1}{\cosh(mL) + \frac{\alpha}{m\lambda}\sinh(mL)}$
-
-**7. kérdés - Borda hatásfoka**
-
-A borda hatásfoka százalékban:
-$\eta[\%] = \eta \cdot 100\%$
-
-**8. kérdés - Relatív hőteljesítmény-növekedés**
-
-Bordázatlan felület hőleadása:
-$Q_{bordázatlan} = \alpha \cdot 1 \text{ m}^2 \cdot (T_0 - T_∞)$
-
-Hőleadás-növekedés:
-$\frac{Q_{össz}}{Q_{bordázatlan}} = \frac{n \cdot Q_{borda} + Q_{alap}}{\alpha \cdot 1 \text{ m}^2 \cdot (T_0 - T_∞)}$
+**Adatok (szöveg szerint)**  
+- Felszín hőmérséklete: \(T_0 = 86\ ^\circ\mathrm{C}\)  
+- Levegő hőmérséklete: \(T_\infty = 21\ ^\circ\mathrm{C}\)  
+- Konvektív tényező: \(h = 30\ \mathrm{W/(m^2\,K)}\)  
+- Borda hossza: \(L = 17\ \mathrm{mm} = 0.017\ \mathrm{m}\)  
+- Borda négyzet-keresztmetszetének oldala: \(a\)  (az ábrából vehető le)  
+- Anyag hővezetése: \(k = \lambda\)  (duralumínium)  
+- Borda‐sűrűség az 1 m²‐es alapfelületen: \(n\)  (a példában megadott érték)  
 
 ---
+
+### 1.  Segédjelölések és alapképletek  
+
+| Jelölés | Képlet / definíció |
+|---------|--------------------|
+| Kerület | \(P = 4\,a\) |
+| Keresztmetszet | \(A_c = a^2\) |
+| Teljes felület (oldalfalak + véglap) | \(A_f = P\,L + A_c\) |
+| **Fin-paraméter** | \(m = \sqrt{\dfrac{hP}{kA_c}} = 2\,\sqrt{\dfrac{h}{k\,a}}\) |
+| **Bordahatásfok (konvektív véglap)** | \(\displaystyle \eta = \frac{\tanh (mL) + \dfrac{h}{m\,k}}{1 + \dfrac{h}{m\,k}\,\tanh (mL)}\) |
+| **Egy borda hőárama** | \(Q_{\text{borda}} = \eta\,h\,A_f\,(T_0 - T_\infty)\) |
+| **Alap (bordák közti) felület** | \(A_{\text{alap}} = 1\ \text{m}^2 - n\,A_c\) |
+| **Alap hőárama** | \(Q_{\text{alap}} = h\,A_{\text{alap}}\,(T_0 - T_\infty)\) |
+| **Összes hőáram** | \(Q_{\text{össz}} = n\,Q_{\text{borda}} + Q_{\text{alap}}\) |
+| **Borda véglap-hőmérséklet** | \(\displaystyle T_{\text{tip}} = T_\infty + (T_0 - T_\infty)\,\frac{1}{\cosh (mL) + \dfrac{h}{m\,k}\,\sinh (mL)}\) |
+| **Relatív hőteljesítmény-növekedés** | \(\displaystyle \Phi = \frac{Q_{\text{össz}}}{h \cdot 1\ \text{m}^2 \,(T_0 - T_\infty)}\) |
+
+---
+
+### 2.  Kérdésekhez tartozó, számok nélküli válaszok  
+
+| # | Kérdés | Szimbolikus eredmény |
+|---|--------|----------------------|
+| **5** | Összes hőteljesítmény | \(Q_{\text{össz}}\) a fenti táblázatból |
+| **6** | Borda véglap-hőmérséklet | \(T_{\text{tip}}\) |
+| **7** | Egy borda hatásfoka | \(\eta\) (szorozva 100-zal, ha %-ban kell) |
+| **8** | Hányszoros hőleadás a bordázatlanhoz képest | \(\Phi\) |
+
+> **Megjegyzés:**  
+> – A feladatszövegben szereplő **\(n\)** (bordák darabszáma 1 m²-en) konkrét értékét behelyettesítve kapod a numerikus eredményeket.  
+> – A fenti képletek egységesek a tankönyvi (Incropera–DeWitt) formulákkal, és kizárólag a konvektív véglappal rendelkező, állandó keresztmetszetű egyenes bordára vonatkoznak.
+
 
 ### 5. kérdés
 **Az alkatrész 1×1 m²-es része által leadott összes hőteljesítmény (bordák + alapfelület), ha a bordák véglapjának hőleadása nem elhanyagolható!**  

@@ -1,59 +1,23 @@
-Az alábbiakban feladatonként összegzem, hol látok hibát vagy hiányosságot a beadott levezetésekben, és jelzem, mi lenne a helyes képlet / gondolatmenet.
-(A hivatkozások a beküldött .md-fájlokra mutatnak.)
+**A három feltöltött `.md`-fájlban már sok minden a helyére került, de még maradt néhány tartalmi és szerkesztési hiba.
+Feladatonként jelzem a legfontosabbakat, hogy tényleg „kerek” legyen a beadás.**
+
+| Feladat                         | Még fennmaradt gond                                                                                                                                                                                                                                                                           | Javaslat                                                                                                                                                                                                                                                                          |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Síkfal, belső hőfejlődés** | *T-kontakt* képlete még mindig tartalmaz egy **+ q s<sub>A</sub>/λ<sub>A</sub>** tagot . <br>A parabolikus profilból kiindulva<br>  $T_{k}=T_{\max}-\dfrac{q_{V}s_{A}^{2}}{2\lambda_{A}}$ <br>és **nincs** lineáris tag. Ezzel együtt a maximális hőmérséklet alacsonyabb, nem magasabb lesz. | - töröld a „+ q s<sub>A</sub>/λ” részt, <br>- frissítsd a 2-3-4. kérdés numerikus eredményeit ennek megfelelően.                                                                                                                                                                  |
+|                                 | A fájlban most már *csak egy* levezetés látszik, ✔️ de ellenőrizd, hogy máshol ne maradjon régi változat (nálam már nem volt dupla).                                                                                                                                                          | —                                                                                                                                                                                                                                                                                 |
+| **2. Bordázott felület**        | Több, egymástól eltérő képlet­változat is bent maradt (legalább három külön blokk található a fájlban) . Ez önmagában nem hiba, de a javított és a korábbi formulák egyszerre szerepelnek.                                                                                                    | - hagyd meg **egy** végleges változatot (legyen az, ahol   $Q_{\text{borda}}$ a √(α P λ A<sub>k</sub>)-s alakban van, és a hatásfok $\eta=\frac{Q_{\text{borda}}}{\alpha A_{\text{borda}}(T_0-T_\infty)}$  ), <br>- töröld vagy kommentezd ki a tanh/cosh-os régi képletrészeket. |
+|                                 | A hatásfokhoz most két út szerepel (közvetlen tanh-os, illetve a $Q_{\text{borda}}$-ból számított).  Ha az utóbbit hagyod bent, a tanh-osra már nincs szükség.                                                                                                                                | —                                                                                                                                                                                                                                                                                 |
+|                                 | A bordák darabszáma *n* nincs definiálva (lépték, osztásköz). Ha a feladatban ez adott, mindenképp írd bele; ha nem, legalább jelöld, hogy “n a feladat szerint”.                                                                                                                             | —                                                                                                                                                                                                                                                                                 |
+| **3. Gömbök hűtése**            | A fájlban továbbra is **két külön modellezés** fut egymás alatt: lumped (Bi < 0,1) **és** sorozatos (Bi ≥ 0,1) . A konkrét adatokkal Bi ≈ 0,014, tehát **csak a lumped modell kell**.                                                                                                         | - hagyd meg a lumped szakaszt (exponenciális képlet), <br>- a sorozatos részt (µ<sub>1</sub>, C<sub>1</sub>, …) nyugodtan törölheted vagy kommentezd, hogy “nem szükséges, mert Bi < 0,1”.                                                                                        |
+|                                 | A golyók számánál a jelölés keveredik: *τ<sub>perc</sub>* nincs máshol definiálva.                                                                                                                                                                                                            | Írd egyszerűen  $N=n\;(\text{db/perc})\times 2\text{ perc}$.                                                                                                                                                                                                                      |
+|                                 | Formailag több példányban is megvan ugyanaz a fájl (eltérő változatok) – érdemes csak egy véglegeset megtartani.                                                                                                                                                                              | —                                                                                                                                                                                                                                                                                 |
 
 ---
 
-## 1. feladat – Kétrétegű síkfal
+### Összefoglaló
 
-forrás:&#x20;
+* **Feladat 1**: egyetlen képlet­hiba (a + q s/λ tag) – javítsd, majd számold újra a 2-4. kérdést.
+* **Feladat 2**: válaszd ki a **legfrissebb** formulablokkot, a többit töröld, és pótold az *n* definícióját.
+* **Feladat 3**: hagyd meg kizárólag a lumped modellt, javítsd a jelölés-apróságokat, töröld a felesleges sorozat-részt.
 
-| Ellenőrzött rész                                                                                                 | Mit tapasztaltam?                                                                                                                                                | Javítás / megjegyzés                                                                  |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| **Hőáramsűrűség**  $q = q_V\,s_A$                                                                                | Helyes: a rétegben felszabaduló összes hő ( $q'''_A s_A$ ) áramlik kifelé, mert a belső felület szigetelt.                                                       | ✓                                                                                     |
-| **Hőmérséklet-gradiens a „A” rétegben**  $\displaystyle \frac{\partial T}{\partial x}=\frac{q_V x-q}{\lambda_A}$ | A szigetelt felületnél ($x=0$) a gradiensnek **nullának** kell lennie, a fenti képlet viszont $-q/\lambda_A$-t ad → **nem teljesíti a peremfeltételt**.          | Helyes képlet:  $\displaystyle \frac{\partial T}{\partial x}= -\frac{q'''_A}{k_A}\,x$ |
-| **Parabolikus hőmérséklet-eloszlás**                                                                             | Mivel a gradiens hibás, a beintegrált $T_A(x)$ képlet is hibás.                                                                                                  | Javítás:  $T_A(x)=T_\text{max}\;-\;\dfrac{q'''_A}{2k_A}\,x^{2}$                       |
-| **Kontakt- és külső felületi hőmérséklet**, ill. $\alpha$ meghatározása                                          | A lineáris rész ( „B” réteg ) és a konvektív kötés képletei szerkezetileg rendben lennének, de a hibás $T_A(x)$ miatt a későbbi relációk sem adnak jó eredményt. | A fenti parabolikus függvénnyel, majd az energiamérleggel kell újraszámolni.          |
-
-**Összegzés:** a fluxus-összefüggés jó, de a hőmérséklet-eloszlás levezetése hibás, ezért a 2-4. kérdéshez vezető numerikus eredmények is eltérnének a helyestől.
-
----
-
-## 2. feladat – Bordázott felület
-
-forrás:&#x20;
-
-| Ellenőrzött rész                                                                | Mit tapasztaltam?                                                                                                  | Javítás / megjegyzés                                                                                                                                                                         |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Fin-paraméter**  $m=\sqrt{\dfrac{hP}{kA_c}}$  → $m = 2\sqrt{\dfrac{h}{k\,a}}$ | Helyes.                                                                                                            | ✓                                                                                                                                                                                            |
-| **Borda hőárama** / **hatásfoka**                                               | A hatásfok-képletben a nevező és számláló kombinációja **nem egyezik** a klasszikus “konvektív véglap” formulával. | Helyes $Q_f$:  $\displaystyle Q_f=\sqrt{hPkA_c}\,(T_b-T_\infty)\,\frac{\sinh(mL)+\frac{h}{mk}\cosh(mL)}{\cosh(mL)+\frac{h}{mk}\sinh(mL)}$  → ebből $\eta_f=\dfrac{Q_f}{hA_f(T_b-T_\infty)}$. |
-| **Véglap-hőmérséklet**                                                          | A kapott képlet (6) stimmel.                                                                                       | ✓                                                                                                                                                                                            |
-| **Összes hőteljesítmény** $Q_\text{össz}=nQ_f+Q_\text{alap}$                    | Rendben.                                                                                                           | ✓                                                                                                                                                                                            |
-
-**Összegzés:** a geometriai részek jók, de a bordahatásfok képlete nem pontos; emiatt a 5., 7., 8. kérdéshez számolt értékek eltérnének a helyestől (különösen nagyobb $mL$ esetén).
-
----
-
-## 3. feladat – Gömbök hűtése
-
-forrás:&#x20;
-
-| Ellenőrzött rész                                          | Mit tapasztaltam?                                                                                                                            | Javítás / megjegyzés                                                                                    |
-| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **Biot-szám**  $Bi=\dfrac{h\,(d/6)}{k}$                   | Helyes (gömbre $L_c=r/3=d/6$).                                                                                                               | ✓                                                                                                       |
-| **Fourier-szám** és **lumped** vs. **analitikus** módszer | Elvi keret jó; kis $Bi$ miatt a lumped modell bőven elegendő.                                                                                | Célszerű közvetlenül  $\displaystyle \Theta^*=\exp\!\left(-\dfrac{hA}{\rho c V}\,t\right)$-t használni. |
-| **Sajátérték-egyenlet**  (sorozatos megoldás)             | A megadott $\mu_1\cot\mu_1=1-Bi$ nem a gömbre vonatkozó klasszikus alak; gömbnél  $\displaystyle \tan\mu_1=\dfrac{3\mu_1}{3-Bi\,\mu_1^{2}}$. | Ha mindenképp sorozatot használsz, erre kell átírni.                                                    |
-| **Hűtőteljesítmény**  $P=\dfrac{nQ_1}{60}$                | Rendben (n: db/perc).                                                                                                                        | ✓                                                                                                       |
-
-**Összegzés:** az elvi gondolatmenet helyes, a lumped-modellre épülő számolás jó eredményt ad; a sorozatos kifejtésben a karakterisztikus egyenlet formája pontatlan, de a konkrét feladatnál nincs jelentős hatása (kicsi $Bi$ miatt).
-
----
-
-### Végső értékelés
-
-| Feladat   | Megbízhatóság     | Fő korrekciós pont                                                         |
-| --------- | ----------------- | -------------------------------------------------------------------------- |
-| 1. síkfal | **nem megfelelő** | hőmérséklet-eloszlás (parabola) és ebből következő hőmérsékletek           |
-| 2. bordák | **részben jó**    | bordahatásfok képlet módosítása                                            |
-| 3. gömbök | **többnyire jó**  | kis $Bi$ esetén egyszerű lumped formula; sorozatos egyenlet precizírozandó |
-
-Ha átírod a jelzett képleteket, a numerikus eredmények is helyükre kerülnek. Szívesen átnézem újra, ha frissíted a fájlokat!
+Ha ezeket a módosításokat átvezeted, a megoldások már teljesen konzisztensnek fognak látszani. Szívesen ránézek még egyszer a végleges verziókra, ha feltöltöd!
