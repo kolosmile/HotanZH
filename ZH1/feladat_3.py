@@ -15,7 +15,7 @@ def get_adatok():
     
     # Származtatott értékek
     adatok["cp"] = adatok["k"] * adatok["R"] / (adatok["k"] - 1)  # J/(kg·K)
-    adatok["cv"] = adatok["R"] / (adatok["k"] - 1)  # J/(kg·K)
+    adatok["cv"] = adatok["R"] / (adatok["k"] - 1)
     
     return adatok
 
